@@ -1,16 +1,39 @@
-XY Linked List Cloning in Python
+# Overview
 
-This repository contains an implementation of a custom linked list data structure where each node has two pointers:
+Cloning a linked list with arbitrary cross-references requires careful pointer handling. A naive approach becomes inefficient or requires extra space.
+This project implements a well-known three-step method to clone the list in:
 
-X pointer (similar to next in a singly linked list)
+O(n) time
 
-Y pointer (an additional reference that can point to any node in the list)
+O(1) extra space
 
-The project demonstrates how to deep clone such a complex linked list while preserving both pointer relationships.
+The steps include inserting cloned nodes within the original list, setting correct Y references, and separating the cloned list from the original.
 
-Features
+How the Cloning Algorithm Works
+1. Interleave clones with original nodes
 
-XYNode class implementing a node with:
+Each original node gets its clone inserted immediately after it:
+
+Original1 → Clone1 → Original2 → Clone2 → ...
+
+2. Set Y pointers of cloned nodes
+
+Because clone nodes follow their originals, a cloned Y pointer can be assigned by referencing:
+
+clone.y = original.y.x
+
+3. Extract the cloned list
+
+The interleaved structure is split back into two independent lists:
+
+Restored original list
+
+Fully functional cloned list
+
+Code Structure
+XYNode
+
+A node with:
 
 data
 
@@ -18,55 +41,20 @@ x_pointer
 
 y_pointer
 
-Creation of a sample linked list with defined X and Y relationships
-
-A three-step cloning process:
-
-Interleave clone nodes within original list
-
-Copy Y pointers to the cloned nodes
-
-Extract the cloned list from the interleaved structure
-
-Visualization function to print both lists
-
-File Overview
-XYNode Class
-
-Defines a node with getters and setters for data, X pointer, and Y pointer.
+Includes getter and setter methods for clarity.
 
 clone_xy_list(head)
 
-Clones the list by interweaving cloned nodes between original nodes.
+Creates clone nodes and interleaves them with original nodes.
 
 add_y_pointers(head)
 
-Sets Y pointers for each cloned node by referencing corresponding clones.
+Assigns the Y pointer for each cloned node based on the structure created in step 1.
 
 extract_cloned_list(head)
 
-Separates the merged list into:
-
-Restored original list
-
-Fully cloned list
+Separates the original list and the cloned list.
 
 visualize_xy_list(head)
 
-Prints each node along with its X and Y pointer relationships.
-
-Example Output
-
-Running the script will show:
-
-Original list
-
-List after inserting clone nodes and setting Y pointers
-
-Final extracted:
-
-Restored original list
-
-Deep-cloned list
-
-Each output shows every node and its X/Y references.
+Prints each node's data and the data pointed to by its X and Y pointers.
