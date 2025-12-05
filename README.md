@@ -9,20 +9,20 @@ O(1) extra space
 
 The steps include inserting cloned nodes within the original list, setting correct Y references, and separating the cloned list from the original.
 
-How the Cloning Algorithm Works
-1. Interleave clones with original nodes
+## How the Cloning Algorithm Works
+### 1. Interleave clones with original nodes
 
 Each original node gets its clone inserted immediately after it:
 
 Original1 → Clone1 → Original2 → Clone2 → ...
 
-2. Set Y pointers of cloned nodes
+### 2. Set Y pointers of cloned nodes
 
 Because clone nodes follow their originals, a cloned Y pointer can be assigned by referencing:
 
 clone.y = original.y.x
 
-3. Extract the cloned list
+### 3. Extract the cloned list
 
 The interleaved structure is split back into two independent lists:
 
